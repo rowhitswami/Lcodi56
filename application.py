@@ -14,7 +14,6 @@ Created on Mon Apr 23 08:59:37 2018
 
 import pandas as pd
 
-<<<<<<< HEAD
 df = pd.read_csv("dataset.csv")
 #print(df.columns)
 
@@ -35,3 +34,8 @@ print('\nThe most common payment method for the United States:')
 print(df.groupby('Country')['Payment_Type'].value_counts().tail(4))
 
 # Answering Fourth Question
+print('\n Earliest time of the day when a transaction occured:')
+df['Transaction_date'] = pd.to_datetime(df['Transaction_date'])
+sorted_date = df.sort_values('Transaction_date')
+earliest_time = sorted_date[~sorted_date['Transaction_date'].dt.date.duplicated()]
+print(earliest_time['Transaction_date'])
