@@ -17,6 +17,11 @@ import pandas as pd
 df = pd.read_csv("dataset.csv")
 #print(df.columns)
 
+# Removing space from City column
+df['Name'] = df['Name'].str.capitalize()
+df['City'] = df['City'].map(lambda x: x.rstrip(' '))
+df['City'] = df['City'].map(lambda x: x.lstrip(' '))
+
 # Answering First Question
 print('Product1 was most sold')
 print(df['Product'].value_counts())
@@ -39,3 +44,8 @@ df['Transaction_date'] = pd.to_datetime(df['Transaction_date'])
 sorted_date = df.sort_values('Transaction_date')
 earliest_time = sorted_date[~sorted_date['Transaction_date'].dt.date.duplicated()]
 print(earliest_time['Transaction_date'])
+
+# Answering Fifth Question
+print('\nAs the value_counts() function of the below line is returning no value greater than 1, it shows that every customer, even if they have same name, have bought product only once. So it means there are no repeat customers in this span of time.\n')
+#print(df.groupby('Name')['City'].value_counts(ascending=False))
+
